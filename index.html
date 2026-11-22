@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#F3F5FA">
+<title>Daily Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F5FA;--pn:#FFFFFF;--ink:#141B34;--mut:#6A7390;--line:#E1E5F0;--acc:#2F43C2;--on:#FFFFFF;--brass:#B8914A;--glow:#E3E9FB;--g:#1FA37A;--y:#E0AE35;--o:#EE8A4B;--r:#E0566A;--b:#4F86F0;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A0F20;--pn:#121A33;--ink:#E8ECFA;--mut:#8D97BC;--line:#222C4B;--acc:#8FA2FF;--on:#0A0F20;--brass:#D6B26A;--glow:#16214A;--g:#43C79B;--y:#EBC04F;--o:#F59E62;--r:#F0728A;--b:#74A3F5;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0A0F20;--pn:#121A33;--ink:#E8ECFA;--mut:#8D97BC;--line:#222C4B;--acc:#8FA2FF;--on:#0A0F20;--brass:#D6B26A;--glow:#16214A;--g:#43C79B;--y:#EBC04F;--o:#F59E62;--r:#F0728A;--b:#74A3F5;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;color:var(--ink);font:400 15px/1.6 "Hanken Grotesk",system-ui,sans-serif;background:radial-gradient(90% 46% at 50% 0,var(--glow),transparent 72%),var(--bg);background-attachment:fixed}
+main{max-width:660px;margin:0 auto;padding:20px 14px 64px}
+h1,h2,h3{font-family:"Newsreader",Georgia,serif;font-weight:500;margin:0;letter-spacing:-.01em}
+h3{font-size:20px;margin-bottom:10px}
+.card{margin-top:16px;padding:22px;border-radius:26px;background:var(--pn);border:1px solid color-mix(in srgb,var(--line) 75%,transparent);box-shadow:0 24px 44px -30px color-mix(in srgb,var(--ink) 40%,transparent)}
+.hero{margin-top:0;text-align:center;padding:26px 20px 20px;color:#EEF2FF;border:0;background:radial-gradient(120% 80% at 50% 0,#3347B8,transparent 62%),linear-gradient(165deg,#10184A,#0B1233);--mut:#A8B4E8;--line:rgba(255,255,255,.16);--ink:#fff;box-shadow:0 30px 50px -30px #0B1233}
+.brand{font:500 14px "Newsreader",serif;color:var(--mut);letter-spacing:.03em}
+.hero h1{font-size:clamp(26px,8vw,36px);line-height:1.1;margin:6px 0 10px}
+.chamber{position:relative;width:196px;height:196px;margin:0 auto}
+.chamber::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.2),rgba(255,255,255,.04));box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.pot{position:absolute;inset:0;display:grid;place-items:center}.pot svg{display:block;transform-origin:50% 100%}
+.drop{position:absolute;left:50%;top:16px;width:9px;height:13px;margin-left:-4px;border-radius:50%/65% 65% 35% 35%;background:var(--b);opacity:0}
+.pst{color:var(--mut);font-size:14px;margin:14px auto 12px;max-width:34ch}
+.prog{height:3px;border-radius:3px;background:var(--line);margin:12px 0 0;overflow:hidden}.prog i{display:block;height:100%;border-radius:3px}
+.vit{display:grid;grid-template-columns:repeat(4,1fr);margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.st+.st{border-left:1px solid var(--line)}.st b{display:block;font:500 26px/1.1 "Newsreader",serif}.st b small{font-size:14px;color:var(--mut)}.st span{font-size:12px;color:var(--mut)}
+.st:last-child b{color:var(--brass)}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.mh h2{font-size:26px}.nav{display:flex;gap:8px}
+.nav button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);font-size:17px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.wd{font-size:12px;color:var(--mut);text-align:center;padding-bottom:2px}
+.cell{--c:var(--line);aspect-ratio:1/1.1;border:0;border-radius:14px;background:color-mix(in srgb,var(--c) 16%,var(--pn));color:var(--ink);padding:5px 0 3px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:space-between;font:500 12px "Hanken Grotesk",sans-serif}
+.cell.s-n{background:color-mix(in srgb,var(--line) 35%,var(--pn))}.cell i{display:none}.cell.e{visibility:hidden}
+.cell.s-g{--c:var(--g)}.cell.s-y{--c:var(--y)}.cell.s-o{--c:var(--o)}.cell.s-r{--c:var(--r)}.cell.s-b{--c:var(--b)}
+.cell.today>span:first-child{color:var(--brass);font-weight:700}
+.cell.sel{box-shadow:0 0 0 2px var(--ink)}.mp svg{display:block}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:16px;font-size:12px;color:var(--mut)}
+.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--c)}
+.dt{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.dt h2{font-size:26px}.dt span{color:var(--mut);font-size:13px}
+.sec{margin-top:28px}.lbl{font-size:12px;color:var(--mut);margin:12px 0 5px}.note{font-size:12px;color:var(--mut);margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:6px 15px;font:500 13px "Hanken Grotesk",sans-serif;cursor:pointer}
+.chip.on{background:var(--acc);border-color:var(--acc);color:var(--on)}
+input[type=text],textarea{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);border-radius:0;padding:10px 2px;font:400 16px "Hanken Grotesk",sans-serif}
+textarea{border:1px solid var(--line);border-radius:14px;padding:12px}
+input:focus,textarea:focus{outline:0;border-color:var(--ink)}button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+input.err{border-color:var(--r)}
+.row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}
+.row .dot{width:8px;height:8px;flex:none;border-radius:50%}.row div{flex:1;min-width:0}.row small{color:var(--mut);display:block;font-size:12px}
+.row .m{font:500 17px "Newsreader",serif;flex:none}.sw{width:22px;height:22px;border-radius:50%;border:0;cursor:pointer;flex:none}.row input[type=text]{flex:1}.x{border:0;background:transparent;color:var(--mut);font-size:18px;cursor:pointer;padding:2px 6px}
+.btn{border:0;border-radius:999px;padding:11px 24px;font:700 14px "Hanken Grotesk",sans-serif;cursor:pointer;background:var(--acc);color:var(--on)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.bar{display:grid;grid-template-columns:116px 1fr 50px;gap:10px;align-items:center;font-size:13px;margin:9px 0}
+.bar div{height:6px;border-radius:6px;background:var(--line);overflow:hidden}.bar div b{display:block;height:100%;border-radius:6px}
+.bar em{font-style:normal;color:var(--mut);text-align:right}
+.tick{display:flex;align-items:center;gap:9px;margin-top:12px;font-size:14px}.tick input{width:18px;height:18px;accent-color:var(--acc)}
+.stuck{border-radius:18px;padding:16px;margin-top:12px;background:color-mix(in srgb,var(--b) 10%,transparent)}
+.wk{display:flex;gap:8px;align-items:flex-end;height:76px;margin-top:8px}.wk div{flex:1;text-align:center;font-size:11px;color:var(--mut)}
+.wk b{display:block;min-height:3px;margin-bottom:4px;border-radius:6px;background:var(--acc);opacity:.85}
+@media (prefers-reduced-motion:no-preference){.chamber.water .pot svg{animation:pop .8s ease}.chamber.water .drop{animation:fall .6s ease-in}@keyframes pop{0%{transform:scale(.94)}50%{transform:scale(1.05)}100%{transform:scale(1)}}@keyframes fall{0%{opacity:1;transform:translateY(-4px)}100%{opacity:0;transform:translateY(70px)}}}
+</style>
+</head>
+<body>
+<main>
+<section class="card hero"><div class="brand">Daily Journal</div><h1 id="when"></h1><div class="chamber" id="ring"></div><div class="pst" id="pst"></div><div class="vit" id="vit"></div></section>
+<section class="card"><div class="mh"><h2 id="mname"></h2><div class="nav"><button data-a="prev" aria-label="Previous month">&lsaquo;</button><button data-a="next" aria-label="Next month">&rsaquo;</button></div></div>
+<div class="grid" id="cal"></div>
+<div class="legend"><span style="--c:var(--g)">3h+ grows</span><span style="--c:var(--y)">1–3h holds</span><span style="--c:var(--o)">under 1h droops</span><span style="--c:var(--b)">stuck, but tried</span><span style="--c:var(--r)">nothing dries it</span></div></section>
+<section class="card" id="day"></section>
+<section class="card" id="ins"></section>
+<section class="card"><h3>Categories</h3><div class="note" style="margin:0 0 6px">Rename, recolor or add your own. Changes apply everywhere.</div><div id="cats"></div><div class="chips" style="margin-top:12px"><button class="btn ghost" data-a="cadd">Add category</button></div></section>
+<section class="card"><h3>Backup</h3>
+<div class="note" style="margin:0 0 8px">Data lives in this browser only. Copy a backup now and then, and paste it here to restore.</div>
+<textarea id="bk" rows="3" placeholder="Paste a backup here to restore"></textarea>
+<div class="chips" style="margin-top:8px"><button class="btn" data-a="copy">Copy backup</button><button class="btn ghost" data-a="restore">Restore from paste</button></div>
+<div class="note" id="bkmsg"></div></section>
+</main>
+<datalist id="sg"></datalist>
+<script>
+const PAL=['#E4572E','#4C77A6','#7A5FD0','#17A398','#C48A12','#7C8499','#D1507B','#3E9B5F'];
+const DEFCATS=['Movement','Learning','Creating','Work','Reading','Personal'].map((n,i)=>({id:i,n:n,c:PAL[i]}));
+const TIMES=[30,60,90,120,180],REASONS=['Tired','Distracted','Low mood','Phone / Reels','Family / outside','No plan','Health'];
+const MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const LBL={g:'Strong day',y:'Solid day',o:'Light day',b:'Stuck, but tried',r:'Nothing logged',n:''};
+let S={days:{}};
+try{const x=JSON.parse(localStorage.getItem('dj1'));if(x&&x.days)S=x}catch(e){}
+if(!Array.isArray(S.cats)||!S.cats.length)S.cats=DEFCATS.map(x=>({...x}));
+const cat=id=>S.cats.find(x=>x.id===id)||{n:'Other',c:'#7C8499'};
+const save=()=>{try{localStorage.setItem('dj1',JSON.stringify(S))}catch(e){}};
+const pad=n=>String(n).padStart(2,'0');
+const key=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const dt=k=>new Date(k+'T00:00:00');
+const add=(k,n)=>{const d=dt(k);d.setDate(d.getDate()+n);return key(d)};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const today=key(new Date());
+let sel=today,view=new Date();view.setDate(1);
+let draft={c:0,t:60};
+const get=k=>S.days[k]||null;
+const D=k=>S.days[k]||(S.days[k]={rows:[]});
+const mins=d=>d?d.rows.reduce((a,r)=>a+r.m,0):0;
+const fm=m=>m?Math.floor(m/60)+'h'+(m%60?' '+m%60+'m':''):'0h';
+const first=()=>Object.keys(S.days).sort()[0]||today;
+function state(k){const d=get(k),m=mins(d);
+ if(m>=180)return'g';if(m>=60)return'y';if(m>0)return'o';
+ if(d&&d.stuck&&d.stuck.on&&d.stuck.winDone)return'b';
+ if(k<today&&k>=first())return'r';return'n'}
+function streak(){let n=0;for(let i=0;i<400;i++){const k=add(today,-i),s=state(k);
+ if(i===0&&s==='n')continue;if(s==='r'||s==='n')break;n++}return n}
+const col=s=>({g:'var(--g)',y:'var(--y)',o:'var(--o)',b:'var(--b)',r:'var(--r)',n:'var(--line)'}[s]);
+
+const MINI={g:[6,1],y:[3,.8],o:[2,.45],b:[1,.7],r:[2,.05]};
+const STAGES=['Seed','Sprout','Seedling','Young plant','Growing','Leafy','Tall','Almost in bloom','In bloom'];
+let fx=0,lastSize=-1;
+function plantSVG(size,h,w){
+ h=Math.max(0,Math.min(1,h));const st=14+size*9,dr=1-h,top=112-st,hue=Math.round(35+h*110);
+ const lc='hsl('+hue+','+(22+h*30)+'%,'+(32+h*14)+'%)',sc='hsl('+hue+','+(30+h*30)+'%,'+(24+h*10)+'%)',tx=60+(size?dr*16:0);
+ let g='<ellipse cx="60" cy="112" rx="26" ry="3" fill="#3A2E26"/>';
+ if(!size)g+='<ellipse cx="60" cy="110" rx="6" ry="4" fill="#8a6a3b"/>';
+ else{g+='<path d="M60 112Q60 '+(112-st/2)+' '+tx+' '+top+'" stroke="'+sc+'" stroke-width="4" fill="none" stroke-linecap="round"/>';
+  const n=Math.max(1,Math.round(size*(.4+.6*h)));
+  for(let i=0;i<n;i++){const f=(i+.7)/n,y=112-st*f,x=60+(tx-60)*f*f;
+   g+='<g transform="translate('+x.toFixed(1)+' '+y.toFixed(1)+')'+(i%2?'':' scale(-1 1)')+' rotate('+Math.round(-(38-dr*85))+')"><ellipse cx="12" cy="0" rx="12" ry="5.5" fill="'+lc+'"/></g>'}
+  if(size>=8&&h>.6){for(let a=0;a<6;a++)g+='<ellipse cx="'+tx+'" cy="'+(top-8)+'" rx="4" ry="8" fill="#E7A6A0" transform="rotate('+a*60+' '+tx+' '+top+')"/>';g+='<circle cx="'+tx+'" cy="'+top+'" r="5" fill="#C9A24B"/>'}}
+ g+='<rect x="30" y="112" width="60" height="7" rx="3" fill="#D9D3C5"/><path d="M36 119h48l-5 21H41z" fill="#C4BCA9"/>';
+ return '<svg viewBox="0 0 120 140" width="'+w+'" height="'+Math.round(w*140/120)+'" aria-hidden="true">'+g+'</svg>'}
+function plantState(){let size=0,h=.6,dry=0;
+ for(let k=first();k<=today;k=add(k,1)){const s=state(k);if(k===today&&s==='n')break;
+  if(s==='g'){h=Math.min(1,h+.35);size=Math.min(8,size+1);dry=0}
+  else if(s==='y'){h=Math.min(1,h+.1);dry=0}
+  else if(s==='b')dry=0;
+  else if(s==='o'){h=Math.max(0,h-.15);dry=0}
+  else if(s==='r'){h=Math.max(0,h-.4);if(++dry>=3)size=Math.max(0,size-1)}}
+ return{size,h}}
+function renderHead(){
+ const p=plantState(),n=streak(),el=document.getElementById('ring'),m=mins(get(today)),pct=Math.min(m/180,1),st=state(today),c=col(st==='n'?'o':st),dn=new Date();
+ document.getElementById('when').textContent=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dn.getDay()]+', '+dn.getDate()+' '+MON[dn.getMonth()];
+ el.innerHTML='<div class="pot">'+plantSVG(p.size,p.h,112)+'</div><i class="drop"></i>';el.classList.toggle('water',!!fx);
+ let t=p.h<.15?'Dried out. Log anything today and it comes back.':p.h<.45?'Looks dull. It needs water.':p.size>=8?'In full bloom. Keep it going.':p.size===0?'Log something to start it growing.':'Healthy. A 3h day makes it grow.';
+ if(fx&&p.h>=.15)t=(p.size>lastSize&&lastSize>=0?'It grew! ':'Watered. ')+t;
+ document.getElementById('pst').innerHTML=STAGES[p.size]+'. '+t+'<div class="prog"><i style="width:'+Math.round(pct*100)+'%;background:'+c+'"></i></div>';
+ document.getElementById('vit').innerHTML='<div class="st"><b>'+fm(m)+'</b><span>today</span></div><div class="st"><b>'+Math.round(p.h*100)+'%</b><span>vigor</span></div><div class="st"><b>'+p.size+'<small>/8</small></b><span>growth</span></div><div class="st"><b>'+n+'</b><span>day streak</span></div>';
+ fx=0;lastSize=p.size}
+
+function renderCal(){
+ document.getElementById('mname').textContent=MON[view.getMonth()]+' '+view.getFullYear();
+ const y=view.getFullYear(),mo=view.getMonth(),lead=view.getDay(),days=new Date(y,mo+1,0).getDate();
+ let h=DOW.map(d=>'<div class="wd">'+d+'</div>').join('');
+ for(let i=0;i<lead;i++)h+='<div class="cell e"></div>';
+ for(let d=1;d<=days;d++){const k=y+'-'+pad(mo+1)+'-'+pad(d),s=state(k),dd=get(k);
+  const pv=MINI[s];
+  h+='<button class="cell s-'+s+(k===today?' today':'')+(k===sel?' sel':'')+'" data-a="pick" data-v="'+k+'" aria-label="'+k+'"><span>'+d+'</span><span class="mp">'+(pv?plantSVG(pv[0],pv[1],18):'')+'</span><i></i></button>'}
+ document.getElementById('cal').innerHTML=h}
+
+function renderDay(){
+ if(!S.cats.some(x=>x.id===draft.c))draft.c=S.cats[0].id;
+ const k=sel,d=get(k)||{rows:[]},m=mins(d),st=d.stuck||{reasons:[]},rv=d.review||{},s=state(k);
+ const sc=(arr,cur,a)=>arr.map(x=>'<button class="chip'+(cur===x?' on':'')+'" data-a="'+a+'" data-v="'+x+'">'+x+'</button>').join('');
+ const rows=d.rows.map((r,i)=>'<div class="row"><span class="dot" style="background:'+cat(r.c).c+'"></span><div>'+esc(r.t)+'<small>'+esc(cat(r.c).n)+'</small></div><span class="m">'+fm(r.m)+'</span><button class="x" data-a="del" data-v="'+i+'" aria-label="Remove">&times;</button></div>').join('')||'<div class="note">Nothing logged yet. Add what you did below.</div>';
+ const dd=dt(k);
+ document.getElementById('day').innerHTML=
+ '<div class="dt"><h2>'+DOW[dd.getDay()]+', '+dd.getDate()+' '+MON[dd.getMonth()].slice(0,3)+'</h2><span>'+fm(m)+(LBL[s]?' · '+LBL[s]:'')+'</span></div>'+
+ '<div class="sec"><h3>Morning check-in</h3><div class="lbl">Mood</div><div class="chips">'+sc([1,2,3,4,5],d.mood,'mood')+'</div><div class="lbl">Energy</div><div class="chips">'+sc([1,2,3,4,5],d.energy,'energy')+'</div>'+
+ '<div class="lbl">The one thing that matters today</div><input type="text" data-f="top" value="'+esc(d.top)+'" placeholder="Your one priority today">'+
+ '<label class="tick"><input type="checkbox" data-a="topDone"'+(d.topDone?' checked':'')+'> Done</label></div>'+
+ '<div class="sec"><h3>Work log</h3>'+rows+
+ '<div class="lbl">Category</div><div class="chips">'+S.cats.map(c=>'<button class="chip'+(draft.c===c.id?' on':'')+'" data-a="cat" data-v="'+c.id+'">'+esc(c.n)+'</button>').join('')+'</div>'+
+ '<div class="lbl">Details (you type this)</div><input type="text" id="dtxt" list="sg" placeholder="What did you do? e.g. Chapter 4 notes, 5 km walk, landing page draft">'+
+ '<div class="lbl">Time</div><div class="chips">'+TIMES.map(t=>'<button class="chip'+(draft.t===t?' on':'')+'" data-a="time" data-v="'+t+'">'+fm(t)+'</button>').join('')+'</div>'+
+ '<div class="chips" style="margin-top:12px"><button class="btn" data-a="add">Add</button><button class="btn ghost" data-a="copyY">Copy yesterday’s rows</button></div></div>'+
+ '<div class="sec"><h3>Hard day?</h3><button class="chip'+(st.on?' on':'')+'" data-a="stuck">'+(st.on?'Stuck mode is on':'I’m stuck today')+'</button>'+
+ (st.on?'<div class="stuck"><div class="lbl" style="margin-top:0">What got in the way</div><div class="chips">'+REASONS.map(r=>'<button class="chip'+((st.reasons||[]).includes(r)?' on':'')+'" data-a="reason" data-v="'+r+'">'+r+'</button>').join('')+'</div>'+
+ '<div class="lbl">What happened</div><input type="text" data-f="stuck.note" value="'+esc(st.note)+'">'+
+ '<div class="lbl">Smallest win: something you can do in 5 minutes</div><input type="text" data-f="stuck.win" value="'+esc(st.win)+'">'+
+ '<label class="tick"><input type="checkbox" data-a="winDone"'+(st.winDone?' checked':'')+'> I did it</label></div>':'')+'</div>'+
+ '<div class="sec"><h3>Evening debrief</h3><div class="lbl">What went well</div><input type="text" data-f="review.well" value="'+esc(rv.well)+'">'+
+ '<div class="lbl">What held me back</div><input type="text" data-f="review.block" value="'+esc(rv.block)+'">'+
+ '<div class="lbl">First thing tomorrow</div><input type="text" data-f="review.next" value="'+esc(rv.next)+'"></div>';
+ const y=get(add(k,-1)),nx=y&&y.review&&y.review.next;
+ if(nx&&!d.top){const i=document.querySelector('[data-f="top"]');if(i)i.placeholder='Yesterday’s plan: '+nx}
+ const u=new Set();Object.values(S.days).forEach(x=>x.rows.forEach(r=>u.add(r.t)));
+ document.getElementById('sg').innerHTML=[...u].slice(-60).map(t=>'<option value="'+esc(t)+'">').join('')}
+
+function renderIns(){
+ const y=view.getFullYear(),mo=view.getMonth(),days=new Date(y,mo+1,0).getDate();
+ const ct={},rs={},wk=[0,0,0,0,0,0,0],wc=[0,0,0,0,0,0,0];let tot=0,stuck=0,tracked=0;
+ for(let d=1;d<=days;d++){const k=y+'-'+pad(mo+1)+'-'+pad(d),x=get(k),s=state(k);
+  if(s!=='n'){tracked++;const w=dt(k).getDay();wk[w]+=mins(x);wc[w]++}
+  if(!x)continue;x.rows.forEach(r=>{ct[r.c]=(ct[r.c]||0)+r.m;tot+=r.m});
+  if(x.stuck&&x.stuck.on){stuck++;(x.stuck.reasons||[]).forEach(r=>rs[r]=(rs[r]||0)+1)}}
+ const mx=Math.max(...Object.values(ct),1);
+ let h='<h3>'+MON[mo]+' in review</h3><div class="note" style="margin:0 0 6px">'+fm(tot)+' logged across '+tracked+' tracked days · '+stuck+' stuck '+(stuck===1?'day':'days')+'</div>';
+ h+=S.cats.map(c=>'<div class="bar"><span>'+esc(c.n)+'</span><div><b style="width:'+((ct[c.id]||0)/mx*100)+'%;background:'+c.c+'"></b></div><em>'+fm(ct[c.id]||0)+'</em></div>').join('');
+ const rk=Object.entries(rs).sort((a,b)=>b[1]-a[1]);
+ if(rk.length)h+='<div class="lbl" style="margin-top:14px">Most common blockers</div><div class="chips">'+rk.map(([r,n])=>'<span class="chip">'+r+' · '+n+'</span>').join('')+'</div>';
+ const avg=wk.map((v,i)=>wc[i]?v/wc[i]:0),am=Math.max(...avg,1);
+ h+='<div class="lbl" style="margin-top:14px">Average hours by weekday</div><div class="wk">'+avg.map((v,i)=>'<div><b style="height:'+(v/am*52)+'px"></b>'+DOW[i]+'</div>').join('')+'</div>';
+ if(tracked<7)h+='<div class="note">Patterns get useful after a couple of weeks of entries.</div>';
+ document.getElementById('ins').innerHTML=h}
+
+function renderCats(){document.getElementById('cats').innerHTML=S.cats.map(c=>'<div class="row"><button class="sw" data-a="ccol" data-v="'+c.id+'" style="background:'+c.c+'" aria-label="Change color"></button><input type="text" data-cid="'+c.id+'" value="'+esc(c.n)+'" aria-label="Category name">'+(S.cats.length>1?'<button class="x" data-a="cdel" data-v="'+c.id+'" aria-label="Remove">&times;</button>':'')+'</div>').join('')}
+function all(){renderHead();renderCal();renderDay();renderIns();renderCats()}
+function setPath(o,p,v){const a=p.split('.');while(a.length>1){const n=a.shift();o=o[n]||(o[n]={})}o[a[0]]=v}
+document.addEventListener('input',e=>{const t=e.target,ci=t.dataset&&t.dataset.cid;if(ci!=null){const c=S.cats.find(x=>x.id===+ci);if(c){c.n=t.value;save();renderDay();renderIns()}return}const f=t.dataset&&t.dataset.f;if(!f)return;setPath(D(sel),f,e.target.value);save()});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='dtxt')act('add')});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.tagName==='INPUT')return;act(b.dataset.a,b.dataset.v)});
+document.addEventListener('change',e=>{const a=e.target.dataset&&e.target.dataset.a;if(a==='topDone'){D(sel).topDone=e.target.checked;save();all()}if(a==='winDone'){const d=D(sel);(d.stuck||(d.stuck={})).winDone=e.target.checked;fx=e.target.checked?1:0;save();all()}});
+function act(a,v){const d=()=>D(sel);
+ if(a==='pick'){sel=v;all();document.getElementById('day').scrollIntoView({behavior:'smooth',block:'start'});return}
+ if(a==='prev'||a==='next'){view.setMonth(view.getMonth()+(a==='next'?1:-1));renderCal();renderIns();return}
+ if(a==='mood'||a==='energy'){const x=d();x[a]=x[a]===+v?0:+v}
+ else if(a==='cat'){draft.c=+v;renderDay();return}
+ else if(a==='time'){draft.t=+v;renderDay();return}
+ else if(a==='add'){const i=document.getElementById('dtxt'),t=i.value.trim();if(!t){i.classList.add('err');i.focus();return}
+  d().rows.push({c:draft.c,t:t,m:draft.t});fx=1}
+ else if(a==='del'){d().rows.splice(+v,1)}
+ else if(a==='copyY'){const y=get(add(sel,-1));if(y&&y.rows.length)y.rows.forEach(r=>d().rows.push({...r}))}
+ else if(a==='stuck'){const x=d();x.stuck=x.stuck||{reasons:[]};x.stuck.on=!x.stuck.on}
+ else if(a==='reason'){const x=d();x.stuck=x.stuck||{on:true,reasons:[]};const r=x.stuck.reasons||(x.stuck.reasons=[]),i=r.indexOf(v);i<0?r.push(v):r.splice(i,1)}
+ else if(a==='ccol'){const c=S.cats.find(x=>x.id===+v);c.c=PAL[(PAL.indexOf(c.c)+1)%PAL.length]}
+ else if(a==='cdel'){if(S.cats.length>1)S.cats=S.cats.filter(x=>x.id!==+v)}
+ else if(a==='cadd'){S.cats.push({id:Math.max(...S.cats.map(x=>x.id))+1,n:'New category',c:PAL[S.cats.length%PAL.length]})}
+ else if(a==='copy'){const t=JSON.stringify(S),m=document.getElementById('bkmsg'),ta=document.getElementById('bk');ta.value=t;
+  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>m.textContent='Backup copied. Paste it into a note or chat to keep it.').catch(()=>{ta.select();m.textContent='Select all in the box above and copy it.'});return}
+ else if(a==='restore'){const m=document.getElementById('bkmsg');try{const x=JSON.parse(document.getElementById('bk').value);if(!x||typeof x.days!=='object')throw 0;S=x;if(!Array.isArray(S.cats)||!S.cats.length)S.cats=DEFCATS.map(y=>({...y}));save();m.textContent='Restored.';all()}catch(er){m.textContent='That text is not a valid backup. Copy the whole backup and paste it again.'}return}
+ save();all()}
+all();
+</script>
+</body>
+</html>
